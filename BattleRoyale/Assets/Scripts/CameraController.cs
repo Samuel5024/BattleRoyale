@@ -57,7 +57,11 @@ public class CameraController : MonoBehaviour
         }
         else
         {
+            // rotate the camera vertically
+            transform.localRotation = Quaternion.Euler(-rotY, 0, 0);
 
+            // rotate the player horizontally
+            transform.parent.rotation = Quaternion.Euler(transform.rotation.x, rotX, 0);
         }
     }
 }
