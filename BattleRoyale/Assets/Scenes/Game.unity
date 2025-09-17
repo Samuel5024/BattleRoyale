@@ -122,6 +122,11 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
+--- !u!1 &18485291 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: 63ea49007a9e7de418606bd2e9e2f40a, type: 3}
+  m_PrefabInstance: {fileID: 776500916}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &44303923
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1807,13 +1812,38 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 63ea49007a9e7de418606bd2e9e2f40a, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 776500920}
   m_SourcePrefab: {fileID: 100100000, guid: 63ea49007a9e7de418606bd2e9e2f40a, type: 3}
 --- !u!4 &776500917 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 63ea49007a9e7de418606bd2e9e2f40a, type: 3}
   m_PrefabInstance: {fileID: 776500916}
   m_PrefabAsset: {fileID: 0}
+--- !u!64 &776500920
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 18485291}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 5
+  m_Convex: 0
+  m_CookingOptions: 30
+  m_Mesh: {fileID: 9127120572191758296, guid: 63ea49007a9e7de418606bd2e9e2f40a, type: 3}
 --- !u!1001 &829367070
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -3271,6 +3301,7 @@ GameObject:
   - component: {fileID: 1856654809}
   - component: {fileID: 1856654808}
   - component: {fileID: 1856654807}
+  - component: {fileID: 1856654812}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -3288,7 +3319,7 @@ Rigidbody:
   serializedVersion: 4
   m_Mass: 1
   m_Drag: 0
-  m_AngularDrag: 0.05
+  m_AngularDrag: 90
   m_CenterOfMass: {x: 0, y: 0, z: 0}
   m_InertiaTensor: {x: 1, y: 1, z: 1}
   m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
@@ -3394,6 +3425,21 @@ Transform:
   - {fileID: 1918237833}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1856654812
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1856654806}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5bd0d90abea18c440b0ff171ef8771a2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  moveSpeed: 25
+  jumpForce: 10
+  rig: {fileID: 1856654807}
 --- !u!4 &1868118379 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 7486941613851933284, guid: aa59e13adde873942928dbef11c28119, type: 3}
