@@ -46,6 +46,8 @@ public class Menu : MonoBehaviourPunCallbacks, ILobbyCallbacks
         if(PhotonNetwork.InRoom)
         {
             // go the the lobby
+            SetScreen(lobbyScreen);
+            UpdateLobbyUI();
 
             // make the room visible
             PhotonNetwork.CurrentRoom.IsVisible = true;
@@ -178,7 +180,7 @@ public class Menu : MonoBehaviourPunCallbacks, ILobbyCallbacks
 
             // set the button OnClick event
             Button buttonComp = button.GetComponent<Button>();
-            string RoomName = roomList[x].Name;
+            string roomName = roomList[x].Name;
             buttonComp.onClick.RemoveAllListeners();
             buttonComp.onClick.AddListener(() => { OnJoinRoomButton(roomName); });
         }
@@ -207,6 +209,7 @@ public class Menu : MonoBehaviourPunCallbacks, ILobbyCallbacks
     // creates/joins/leaves a room. This sends over a list of all the rooms.
     public override void OnRoomListUpdate(List<RoomInfo> allRooms)
     {
+        Debug.Log("OnRoomListUpdate called from Photon");
         roomList = allRooms;
     }
 
