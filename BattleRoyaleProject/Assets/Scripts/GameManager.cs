@@ -47,6 +47,19 @@ public class GameManager : MonoBehaviourPun
         }
     }
 
+    // SpawnPlayer instantiates a player across the network
+    
+    [PunRPC]
+    void SpawnPlayer()
+    {
+        GameObject playerOBj = PhotonNetwork.Instantiate(playerPrefabLocation, spawnPoints
+            [Random.Range(0, spawnPoints.Length)].position, Quaternion.identity);
+
+        // initialize the player for all other players
+
+        playerOBj.GetComponent<PlayerController>().photonView.RPC("Initialize", RpcTarget.All, PhotonNetwork.LocalPlayer);
+    }
+
     // Update is called once per frame
     void Update()
     {

@@ -1,8 +1,10 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Photon.Pun;
+using Photon.Realtime;
 
-public class PlayerController : MonoBehaviour
+public class PlayerController : MonoBehaviourPun
 {
     [Header("Stats")]
     public float moveSpeed;
@@ -10,6 +12,10 @@ public class PlayerController : MonoBehaviour
 
     [Header("Components")]
     public Rigidbody rig;
+
+    public int id;
+    public Player photonPlayer;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -56,5 +62,22 @@ public class PlayerController : MonoBehaviour
         {
 
         }
+    }
+
+    [PunRPC]
+    public void Initialize(Player player)
+    {
+        id = player.ActorNumber;
+        photonPlayer = player;
+
+        GameManager.instance.players[id - 1] = this;
+
+        // is this not our local player?
+        if(!photonView.IsMine)
+        {
+            GetComponentInChildren<Camera>().gameObject.SetActive(false);
+        }
+
+
     }
 }
