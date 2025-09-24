@@ -16,6 +16,14 @@ public class PlayerController : MonoBehaviourPun
     public int id;
     public Player photonPlayer;
 
+    private int curAttackerId;
+
+    public int curHp;
+    public int maxHp;
+    public bool dead;
+    private bool flashingDamage;
+    public MeshRenderer mr;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -25,11 +33,71 @@ public class PlayerController : MonoBehaviourPun
     // Update is called once per frame
     void Update()
     {
+        // make sure that only the player who controls this player, will run the update function
+        if(!photonView.IsMine || dead)
+        {
+            return;
+        }
+
         Move();
 
         if (Input.GetKeyDown(KeyCode.Space))
             TryJump();
     }
+
+    // TakeDamage called when player gets hit
+    [PunRPC]
+    public void TakeDamage(int attackerId, int damage)
+    {
+        if(dead)
+        {
+            return;
+        }
+
+        curHp -= damage;
+        curAttackerId = attackerId;
+
+        // flash player red
+        photonView.RPC("DamageFlash", RpcTarget.Others);
+
+        // update the health bar UI
+
+        // die if no health left
+        if(curHp <= 0)
+        {
+            photonView.RPC("Die", RpcTarget.All);
+        }
+    }
+
+    // DamageFlash visually flashes the player red when they get hit
+    [PunRPC]
+    void DamageFlash()
+    {
+        if(flashingDamage)
+        {
+            StartCoroutine(DamageFlashCoRoutine());
+
+            IEnumerator DamageFlashCoRoutine()
+            {
+                flashingDamage = true;
+                Color defaultColor = mr.material.color;
+                mr.material.color = Color.red;
+
+                yield return new WaitForSeconds(0.05f);
+
+                mr.material.color = defaultColor;
+                flashingDamage = false;
+            }
+        }
+    }
+
+    // Die gets called when our health goes below 0
+    [PunRPC]
+    void Die()
+    {
+
+    }
+
 
     // Move checks for keyboard input and then sets our velocity
     void Move()
@@ -80,4 +148,5 @@ public class PlayerController : MonoBehaviourPun
 
 
     }
+
 }
