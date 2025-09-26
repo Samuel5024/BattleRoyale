@@ -60,6 +60,17 @@ public class GameManager : MonoBehaviourPun
         playerOBj.GetComponent<PlayerController>().photonView.RPC("Initialize", RpcTarget.All, PhotonNetwork.LocalPlayer);
     }
 
+    // these functions help with finding other players in the game
+    public PlayerController GetPlayer(int playerId)
+    {
+        return players.First(x => x.id == playerId);
+    }
+
+    public PlayerController GetPlayer(GameObject playerObj)
+    {
+        return players.First(x => x.gameObject == playerObj);
+    }
+
     // Update is called once per frame
     void Update()
     {
