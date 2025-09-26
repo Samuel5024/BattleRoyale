@@ -24,7 +24,10 @@ public class GameManager : MonoBehaviourPun
         instance = this;
     }
 
-    // Start is called before the first frame update
+    // 1. Each client tells the server to tell everyone else the've started up ingame
+    // 2. If I'm the master client and all playrs have run their start functin, call spawn player on everyone
+    // In other words, don't spawn any player objects until all players are in-game and ready to go
+
     void Start()
     {
         // set the size of the players array and alive players interger
@@ -76,7 +79,7 @@ public class GameManager : MonoBehaviourPun
     {
         if(alivePlayers == 1)
         {
-            photonView.RPC("WinGame", RpcTargets.All, players.First(x => !x.dead).id);
+            photonView.RPC("WinGame", RpcTarget.All, players.First(x => !x.dead).id);
         }
     }
 

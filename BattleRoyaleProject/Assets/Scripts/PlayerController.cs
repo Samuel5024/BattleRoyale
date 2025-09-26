@@ -20,6 +20,7 @@ public class PlayerController : MonoBehaviourPun
 
     public int curHp;
     public int maxHp;
+    public int kills;
     public bool dead;
     private bool flashingDamage;
     public MeshRenderer mr;
