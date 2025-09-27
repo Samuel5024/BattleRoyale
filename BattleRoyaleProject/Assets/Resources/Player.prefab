@@ -501,6 +501,7 @@ MonoBehaviour:
   id: 0
   curHp: 0
   maxHp: 0
+  kills: 0
   dead: 0
   mr: {fileID: 0}
 --- !u!114 &6552820803092274953
