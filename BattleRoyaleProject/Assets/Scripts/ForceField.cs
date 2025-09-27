@@ -14,7 +14,7 @@ public class ForceField : MonoBehaviour
     private float lastShrinkEndTime;
     private bool shrinking;
     private float targetDiameter;
-    private float lastPlayercheckTime;
+    private float lastPlayerCheckTime;
     void Start()
     {
         lastShrinkEndTime = Time.time;
@@ -42,6 +42,8 @@ public class ForceField : MonoBehaviour
                 Shrink();
             }
         }
+
+        CheckPlayers();
     }
 
     // Shrink will calculate a new diameter and begin to shrink
@@ -67,9 +69,23 @@ public class ForceField : MonoBehaviour
     // from the center. If they're outside the force field, damage them.
     void CheckPlayers()
     {
-        if(Time.time - lastPlayercheckTime > 1.0f)
+        if(Time.time - lastPlayerCheckTime > 1.0f)
         {
-            //lastPlayerCheckT
+            lastPlayerCheckTime = Time.time;
+
+            // loop through all players
+            foreach(PlayerController player in GameManager.instance.players)
+            {
+                if(player.dead || !player)
+                {
+                    continue;
+                }
+
+                if(Vector3.Distance(Vector3.zero, player.transform.position) >= transform.localScale.x)
+                {
+                    player.photonView.RPC("TakeDamage", player.photonPlayer, 0, playerDamage);
+                }
+            }
         }
     }
 

@@ -181,4 +181,12 @@ public class PlayerController : MonoBehaviourPun
 
     }
 
+    [PunRPC]
+    public void Heal(int amountToHeal)
+    {
+        curHp = Mathf.Clamp(curHp + amountToHeal, 0, maxHp);
+
+        // update the ammo text
+    }
+
 }
