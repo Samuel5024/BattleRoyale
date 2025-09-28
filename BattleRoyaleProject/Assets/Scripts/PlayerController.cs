@@ -16,8 +16,6 @@ public class PlayerController : MonoBehaviourPun
     public int id;
     public Player photonPlayer;
 
-    private int curAttackerId;
-
     public int curHp;
     public int maxHp;
     public int kills;
@@ -25,6 +23,8 @@ public class PlayerController : MonoBehaviourPun
     private bool flashingDamage;
     public MeshRenderer mr;
 
+    private int curAttackerId;
+    public PlayerWeapon weapon;
     // Start is called before the first frame update
     void Start()
     {
@@ -68,6 +68,8 @@ public class PlayerController : MonoBehaviourPun
         {
             photonView.RPC("Die", RpcTarget.All);
         }
+
+        GameUI.instance.UpdateHealthBar();
     }
 
     // DamageFlash visually flashes the player red when they get hit
@@ -128,6 +130,8 @@ public class PlayerController : MonoBehaviourPun
     public void AddKill()
     {
         kills++;
+
+        GameUI.instance.UpdatePlayerInfoText();
     }
 
 
@@ -151,17 +155,12 @@ public class PlayerController : MonoBehaviourPun
     // TryJump checks to see if player is standing on the ground and if so, add upward force
     void TryJump()
     {
-        // start slightly above the bottom of the player
-        Vector3 origin = transform.position + Vector3.up * 0.1f;
-
-        // distance to check = half the capsule height + a little buffer
-        float checkDistance = 0.6f;
-
-        // perform the raycast
-        if(Physics.Raycast(origin, Vector3.down))
+        // Raycast down and trigger if it hits an object
+        Ray ray = new Ray(transform.position, Vector3.down);
+        if(Physics.Raycast(ray, 1.5f))
         {
-
-        }
+            rig.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
+        } 
     }
 
     [PunRPC]
@@ -178,7 +177,10 @@ public class PlayerController : MonoBehaviourPun
             GetComponentInChildren<Camera>().gameObject.SetActive(false);
         }
 
-
+        else
+        {
+            GameUI.instance.Initialize(this);
+        }
     }
 
     [PunRPC]
@@ -186,7 +188,7 @@ public class PlayerController : MonoBehaviourPun
     {
         curHp = Mathf.Clamp(curHp + amountToHeal, 0, maxHp);
 
-        // update the ammo text
+        GameUI.instance.UpdateHealthBar();
     }
 
 }
