@@ -13,8 +13,20 @@ public class NetworkManager : MonoBehaviourPunCallbacks
 
     private void Awake()
     {
-        instance = this;
-        DontDestroyOnLoad(gameObject);
+        //instance = this;
+        //DontDestroyOnLoad(gameObject);
+
+        // if an instance already exists and it's not this one - destroy it!
+        if(instance != null && instance != this)
+        {
+            gameObject.SetActive(false);
+        }
+        
+        else
+        {
+            instance = this;
+            DontDestroyOnLoad(gameObject);
+        }
     }
 
     // Start is called before the first frame update
@@ -50,11 +62,5 @@ public class NetworkManager : MonoBehaviourPunCallbacks
     public void ChangeScene(string sceneName)
     {
         PhotonNetwork.LoadLevel(sceneName);
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
     }
 }
