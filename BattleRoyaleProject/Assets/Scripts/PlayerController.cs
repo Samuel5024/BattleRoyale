@@ -13,9 +13,11 @@ public class PlayerController : MonoBehaviourPun
     [Header("Components")]
     public Rigidbody rig;
 
+    [Header("Photon")]
     public int id;
     public Player photonPlayer;
 
+    [Header("Stats")]
     public int curHp;
     public int maxHp;
     public int kills;
@@ -25,13 +27,6 @@ public class PlayerController : MonoBehaviourPun
 
     private int curAttackerId;
     public PlayerWeapon weapon;
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
     void Update()
     {
         // make sure that only the player who controls this player, will run the update function
@@ -43,7 +38,14 @@ public class PlayerController : MonoBehaviourPun
         Move();
 
         if (Input.GetKeyDown(KeyCode.Space))
+        {
             TryJump();
+        }
+            
+        if (Input.GetMouseButton(0))
+        {
+            weapon.TryShoot();
+        }
     }
 
     // TakeDamage called when player gets hit

@@ -9,7 +9,7 @@ public enum PickupType
     Health,
     Ammo
 }
-public class Pickup : MonoBehaviour
+public class Pickup : MonoBehaviourPun
 {
     public PickupType type;
     public int value;
@@ -19,6 +19,7 @@ public class Pickup : MonoBehaviour
 
     void OnTriggerEnter(Collider other)
     {
+        Debug.Log("Pickup triggered");
         if (!PhotonNetwork.IsMasterClient)
         {
             return;
@@ -38,7 +39,15 @@ public class Pickup : MonoBehaviour
             {
                 player.photonView.RPC("GiveAmmo", player.photonPlayer, value);
             }
+
+            photonView.RPC("DestroyPickup", RpcTarget.AllBuffered);
         }
 
+    }
+
+    [PunRPC]
+    public void DestroyPickup()
+    {
+        Destroy(gameObject);
     }
 }

@@ -46,8 +46,6 @@ public class PlayerWeapon : MonoBehaviour
 
         // spawn the bullet
         player.photonView.RPC("SpawnBullet", RpcTarget.All, bulletSpawnPos.transform.position, Camera.main.transform.forward);
-
-        
     }
 
     // SpwanBullet gets called (on everyone's computer) when we shoot
@@ -74,17 +72,5 @@ public class PlayerWeapon : MonoBehaviour
 
         // update the ammo text
         GameUI.instance.UpdateAmmoText();
-    }
-
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
     }
 }
