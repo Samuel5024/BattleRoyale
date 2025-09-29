@@ -150,15 +150,7 @@ public class Menu : MonoBehaviourPunCallbacks, ILobbyCallbacks
         PhotonNetwork.CurrentRoom.IsVisible = false;
 
         // tell everyone to load the game scene
-        if (NetworkManager.instance != null)
-        {
-            NetworkManager.instance.photonView.RPC("ChangeScene", RpcTarget.All, "Game");
-        }
-        else
-        {
-            Debug.LogError("NetworkManager.instance is missing!");
-        }
-        
+        NetworkManager.instance.photonView.RPC("ChangeScene", RpcTarget.All, "Game");
     }
 
     public void OnLeaveLobbyButton()
