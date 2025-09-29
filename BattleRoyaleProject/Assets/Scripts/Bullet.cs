@@ -18,6 +18,8 @@ public class Bullet : MonoBehaviour
         this.damage = damage;
         this.attackerId = attackerId;
         this.isMine = isMine;
+
+        Destroy(gameObject, 5.0f);
     }
 
     // OnTriggerEnter gets called when our trigger enters the collider of another object
