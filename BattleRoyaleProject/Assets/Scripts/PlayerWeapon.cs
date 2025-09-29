@@ -19,9 +19,8 @@ public class PlayerWeapon : MonoBehaviour
     public GameObject bulletPrefab;
     public Transform bulletSpawnPos;
 
-    private PlayerController player;
+    public PlayerController player;
 
-    public PlayerWeapon weapon;
 
     void Awake()
     {

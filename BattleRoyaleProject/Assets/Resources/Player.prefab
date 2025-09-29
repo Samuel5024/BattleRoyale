@@ -358,7 +358,7 @@ GameObject:
   - component: {fileID: 2371559110794636305}
   - component: {fileID: 6552820803092274953}
   - component: {fileID: 127212773144790233}
-  - component: {fileID: 1648384746938463210}
+  - component: {fileID: 6520278148546314296}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -503,7 +503,7 @@ MonoBehaviour:
   kills: 0
   dead: 0
   mr: {fileID: 9012858260443415918}
-  weapon: {fileID: 1648384746938463210}
+  weapon: {fileID: 6520278148546314296}
 --- !u!114 &6552820803092274953
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -543,7 +543,7 @@ MonoBehaviour:
   m_SynchronizeRotation: 1
   m_SynchronizeScale: 0
   m_UseLocal: 1
---- !u!114 &1648384746938463210
+--- !u!114 &6520278148546314296
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -555,11 +555,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6ab870b0545bb8043b34bb22503b47c0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  damage: 10
+  damage: 5
   curAmmo: 100
   maxAmmo: 100
-  bulletSpeed: 30
+  bulletSpeed: 10
   shootRate: 0.25
-  bulletPrefab: {fileID: 7184910889202355562}
+  bulletPrefab: {fileID: 3936770523650408763, guid: f8232ccff5ad6d246a2ec20c3fb45668, type: 3}
   bulletSpawnPos: {fileID: 1823366014296271566}
-  weapon: {fileID: 1648384746938463210}
+  player: {fileID: 2371559110794636305}
