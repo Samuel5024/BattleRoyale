@@ -106,6 +106,7 @@ public class PlayerController : MonoBehaviourPun
         GameManager.instance.alivePlayers--;
 
         // host will check win condition
+        // CheckWinCondition doesn't just check, but also ends the game, so flow would stop there
         if(PhotonNetwork.IsMasterClient)
         {
             GameManager.instance.CheckWinCondition();
@@ -114,6 +115,7 @@ public class PlayerController : MonoBehaviourPun
         // is this our local player
         if(photonView.IsMine)
         {
+            // check if I'm dying to a player or the force field
             if(curAttackerId != 0)
             {
                 GameManager.instance.GetPlayer(curAttackerId).photonView.RPC("AddKill", RpcTarget.All);
@@ -122,7 +124,7 @@ public class PlayerController : MonoBehaviourPun
             // set the cam to spectator
             GetComponentInChildren<CameraController>().SetAsSpectator();
 
-            //disable the hysics and hide the player
+            //disable the physics and hide the player
             rig.isKinematic = true;
             transform.position = new Vector3(0, -50, 0);
         }
