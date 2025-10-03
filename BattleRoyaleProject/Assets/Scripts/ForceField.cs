@@ -4,12 +4,12 @@ using UnityEngine;
 
 public class ForceField : MonoBehaviour
 {
-    public float shrinkWaitTime;
-    public float shrinkAmount;
-    public float shrinkDuration;
-    public float minShrinkAmount;
+    public float shrinkWaitTime; // how long the field waits (in seconds) after finishing a shrink before we can shrink again
+    public float shrinkAmount; // how much the field should shrink everytime it shrinks
+    public float shrinkDuration; // how long the shrinking process takes (eases from current -> target size overtime)
+    public float minShrinkAmount; // minimum diamater field is allowed to shrink so the field doesn't completely disappear
 
-    public int playerDamage;
+    public int playerDamage; // how much damage players take when outside the field
 
     private float lastShrinkEndTime;
     private bool shrinking;
@@ -24,21 +24,27 @@ public class ForceField : MonoBehaviour
     // Update will manage the shrinking and damaging
     void Update()
     {
+ 
         if(shrinking)
         {
             transform.localScale = Vector3.MoveTowards(transform.localScale, Vector3.one * targetDiameter, (shrinkAmount / shrinkDuration) * Time.deltaTime);
-        }
-
-        if (transform.localScale.x == targetDiameter)
-        {
-            shrinking = false;
-        }
-
+            if (transform.localScale.x == targetDiameter)
+            {
+                shrinking = false;
+            }
+        }        
         else
         {
+            float shrinkTime = Time.time - lastShrinkEndTime;
+            Debug.Log(shrinkTime);
+            Debug.Log(shrinkWaitTime);
+            float shrinkAmount = transform.localScale.x;
+            Debug.Log(shrinkAmount);
+            Debug.Log(minShrinkAmount);
             // can we shrink again?
             if(Time.time - lastShrinkEndTime >= shrinkWaitTime && transform.localScale.x > minShrinkAmount)
             {
+                Debug.Log("Shrink is being called");
                 Shrink();
             }
         }
@@ -56,13 +62,14 @@ public class ForceField : MonoBehaviour
         {
             targetDiameter -= minShrinkAmount;
         }
-
         else
         {
             targetDiameter = minShrinkAmount;
         }
 
         lastShrinkEndTime = Time.time + shrinkDuration;
+
+        Debug.Log(targetDiameter);
     }
 
     // CheckPlayers loops through the players every second and checks their distance
