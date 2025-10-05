@@ -36,15 +36,15 @@ public class ForceField : MonoBehaviour
         else
         {
             float shrinkTime = Time.time - lastShrinkEndTime;
-            Debug.Log(shrinkTime);
-            Debug.Log(shrinkWaitTime);
+            // Debug.Log(shrinkTime);
+            // Debug.Log(shrinkWaitTime);
             float shrinkAmount = transform.localScale.x;
-            Debug.Log(shrinkAmount);
-            Debug.Log(minShrinkAmount);
+            // Debug.Log(shrinkAmount);
+            // Debug.Log(minShrinkAmount);
             // can we shrink again?
             if(Time.time - lastShrinkEndTime >= shrinkWaitTime && transform.localScale.x > minShrinkAmount)
             {
-                Debug.Log("Shrink is being called");
+                // Debug.Log("Shrink is being called");
                 Shrink();
             }
         }
